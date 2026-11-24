@@ -21,9 +21,12 @@ EXCUSE = (
 
 
 def main() -> None:
-    # The gate requires UTF-8 text of 1-200 characters, not only
-    # whitespace; enforce the length rule here so a bad edit fails
-    # loudly instead of shipping an invalid entry.
+    # The gate requires one line of UTF-8 text of 1-200 characters,
+    # not only whitespace; enforce the single-line and length rules
+    # here so a bad edit fails loudly instead of shipping an invalid
+    # entry. The excuse is 104 characters, comfortably inside the cap,
+    # and carries no trailing newline so entry.txt holds exactly it.
+    assert "\n" not in EXCUSE, "excuse must be a single line"
     assert 1 <= len(EXCUSE) <= 200, "excuse must be 1-200 characters"
     assert EXCUSE.strip() == EXCUSE
     os.makedirs("/output", exist_ok=True)
